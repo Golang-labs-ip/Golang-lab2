@@ -1,22 +1,40 @@
-package lab2
+package main
 
 import (
 	"fmt"
 )
 
 func main() {
+	userData := "4 2 - 3 * 5 +"
+	if include(userData) == 1 {
+		fmt.Println(postfixToPrefix(userData))
+	} else {
+		fmt.Println("Incorrect statement")
+	}
+}
+func postfixToPrefix(elem string) string {
+	return prefix(infix(elem))
+}
 
-	r := "((1+2)*4)^2"
-
-	math := prepare(createArraySpace(r, ""))
-
-	fmt.Println(math)
-
-	fmt.Println(postfix(math))
-
-	fmt.Println(infix(postfix(math)))
-
-	fmt.Println(prefix(math))
+func include(state string) int {
+	if len(state) == 0 {
+		return 0
+	}
+	for i := 0; i < len(state); i++ {
+		if haveItem(string(state[i])) == 0 {
+			return 0
+		}
+	}
+	return 1
+}
+func haveItem(char string) int {
+	input := " 0123456789+-*/^()"
+	for j := 0; j < len(input); j++ {
+		if char == string(input[j]) {
+			return 1
+		}
+	}
+	return 0
 }
 
 func prepare(elem []string) string {
