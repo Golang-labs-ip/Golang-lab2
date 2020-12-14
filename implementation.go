@@ -1,85 +1,37 @@
 package lab2
 
-import (
-	"fmt"
-)
-
-func main() {
-
-	r := "((1+2)*4)^2"
-
-	math := prepare(createArraySpace(r, ""))
-
-	fmt.Println(math)
-
-	fmt.Println(postfix(math))
-
-	fmt.Println(infix(postfix(math)))
-
-	fmt.Println(prefix(math))
+// PostfixToPrefix ...
+// TODO: document this function
+// PostfixToPrefix converts
+func PostfixToPrefix(elem string) string {
+	if include(elem) == 0 {
+		return "Incorrect statement..."
+	}
+	if len(createArraySpace(elem, " ")) < 3 {
+		return "dont enought args..."
+	}
+	return prefix(infix(elem))
 }
 
-func prepare(elem []string) string {
-
-	cur := ""
-	for i := 0; i < len(elem); i++ {
-		if elem[i] == "-" {
-			if i == 0 {
-				cur += "0"
-			}
-			if elem[i-1] == "(" {
-				cur += "0"
-			}
-		}
-		cur += elem[i]
+func include(state string) int {
+	if len(state) == 0 {
+		return 0
 	}
-	elem = createArraySpace(cur, "")
-	for i := 0; i < len(elem); {
-		if i+1 < len(elem) && elem[i] == string("-") {
-			if elem[i+1] == string("-") {
-				elem[i] = "+"
-				elem[i+1] = ""
-				elem = createArraySpace(createString(elem), "")
-				i--
-			} else if elem[i+1] == string("+") {
-				elem[i] = "-"
-				elem[i+1] = ""
-				elem = createArraySpace(createString(elem), "")
-				i--
-			} else {
-				i++
-			}
-
-		} else if i+1 < len(elem) && elem[i] == string("+") {
-
-			if elem[i+1] == string("-") {
-				elem[i] = "-"
-				elem[i+1] = ""
-				elem = createArraySpace(createString(elem), "")
-				i--
-			} else if elem[i+1] == string("+") {
-				elem[i] = "+"
-				elem[i+1] = ""
-				elem = createArraySpace(createString(elem), "")
-				i--
-
-			} else {
-				i++
-			}
-
-		} else if elem[i] == ")" {
-			if getPriority(elem[i-1]) != 0 {
-				elem[i-1] = ""
-				elem = createArraySpace(createString(elem), "")
-				i++
-			} else {
-				i++
-			}
-		} else {
-			i++
+	for i := 0; i < len(state); i++ {
+		if haveItem(string(state[i])) == 0 {
+			return 0
 		}
 	}
-	return createString(elem)
+	return 1
+}
+func haveItem(char string) int {
+	input := " .0123456789+-*/^()"
+	for j := 0; j < len(input); j++ {
+		if char == string(input[j]) {
+			return 1
+		}
+	}
+	return 0
 }
 
 func createArraySpace(elem string, space string) (result []string) {
