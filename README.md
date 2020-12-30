@@ -1,4 +1,2 @@
-Шаблон для 2-гої роботи з архітектури ПЗ
----
-
-Використайте кнопку **"Use this template"**, щоб створити власний репозиторій.
+[Successful Github Actions](https://github.com/Golang-labs-ip/Golang-lab2/actions/runs/452759229)
+[Unsuccessful Github Actions](https://github.com/Golang-labs-ip/Golang-lab2/actions/runs/452749302)
