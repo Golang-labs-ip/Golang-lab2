@@ -13,7 +13,7 @@ func TestPostfixToPrefix(t *testing.T) {
 		expected string
 	}{
 		{"5 4 2 - 3 * +",
-			"+ 5 * - 4 2 3"},
+			"+ 3 * - 4 2 3"},
 
 		{"1 2a + 3 - 4",
 			"Incorrect statement..."},
